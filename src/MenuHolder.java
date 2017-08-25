@@ -11,6 +11,8 @@ public class MenuHolder {
     void menu(){
         System.out.println("Make your choice;");
         System.out.println("1.Print developers list.");
+        System.out.println("2.Add developer.");
+
         int choice = scanner.nextInt();
         switch (choice){
             case (1) : {

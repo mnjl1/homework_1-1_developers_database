@@ -16,8 +16,7 @@ public class DevelopersDao {
     public void createDeveloper(){
         int salary;
         queary = "INSERT INTO developers (firstName, lastName, salary) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary);
+        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
             System.out.println("Enter first name:");
             String firstName = scanner.nextLine();
             preparedStatement.setString(1,firstName);
