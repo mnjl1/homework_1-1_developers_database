@@ -12,16 +12,17 @@ public class DevelopersDao {
     DatabaseConnector databaseConnector = new DatabaseConnector();
 
     Scanner scanner = new Scanner(System.in);
+
     public DevelopersDao() throws SQLException {
     }
 
-    public void createDeveloper(){
+    public void createDeveloper() {
         int salary;
         queary = "INSERT INTO developers (firstName, lastName, salary) VALUES (?, ?, ?)";
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
             System.out.println("Enter first name:");
             firstName = scanner.nextLine();
-            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(1, firstName);
             System.out.println("Enter last name");
             lastName = scanner.nextLine();
             preparedStatement.setString(2, lastName);
@@ -34,41 +35,41 @@ public class DevelopersDao {
         }
     }
 
-    public void addSkill(){
+    public void addSkill() {
         System.out.println("Enter developer's first name.");
         firstName = scanner.nextLine();
         System.out.println("Enter developer's last name.");
         lastName = scanner.nextLine();
         System.out.println("Enter skill to add");
         String skill = scanner.nextLine();
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateDeveloper(){
+    public void updateDeveloper() {
 
     }
 
-    public void deleteDeveloper(){
+    public void deleteDeveloper() {
         System.out.println("Enter developer's last name to delete from database.");
         lastName = scanner.nextLine();
-        queary = "delete from developers where lastName = '" +lastName+"'";
+        queary = "delete from developers where lastName = '" + lastName + "'";
 
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void getDevelopersList(){
+    public void getDevelopersList() {
 
-        try(Statement statement = databaseConnector.getConnection().createStatement()) {
+        try (Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM developers");
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 developers.setId(resultSet.getInt(1));
                 developers.setFirstName(resultSet.getString("firstName"));
                 developers.setLastName(resultSet.getString("lastName"));

@@ -12,13 +12,13 @@ public class DatabaseConnector {
 
     private Connection connection;
 
-        public DatabaseConnector(){
-            try {
-                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public DatabaseConnector() {
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
 
     public Connection getConnection() {
         return connection;
