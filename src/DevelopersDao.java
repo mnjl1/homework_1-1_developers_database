@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class DevelopersDao {
     String queary;
+    String firstName;
+    String lastName;
     Developers developers = new Developers();
     DatabaseConnector databaseConnector = new DatabaseConnector();
 
@@ -18,17 +20,45 @@ public class DevelopersDao {
         queary = "INSERT INTO developers (firstName, lastName, salary) VALUES (?, ?, ?)";
         try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
             System.out.println("Enter first name:");
-            String firstName = scanner.nextLine();
+            firstName = scanner.nextLine();
             preparedStatement.setString(1,firstName);
             System.out.println("Enter last name");
-            String lastName = scanner.nextLine();
+            lastName = scanner.nextLine();
             preparedStatement.setString(2, lastName);
             System.out.println("Enter salary:");
             salary = scanner.nextInt();
             preparedStatement.setInt(3, salary);
             preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void addSkill(){
+        System.out.println("Enter developer's first name.");
+        firstName = scanner.nextLine();
+        System.out.println("Enter developer's last name.");
+        lastName = scanner.nextLine();
+        System.out.println("Enter skill to add");
+        String skill = scanner.nextLine();
+        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void updateDeveloper(){
+
+    }
+
+    public void deleteDeveloper(){
+        System.out.println("Enter developer's last name to delete from database.");
+        lastName = scanner.nextLine();
+        queary = "delete from developers where lastName = '" +lastName+"'";
+
+        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,8 +66,7 @@ public class DevelopersDao {
 
     public void getDevelopersList(){
 
-        try {
-            Statement statement = databaseConnector.getConnection().createStatement();
+        try(Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM developers");
             while (resultSet.next()){
                 developers.setId(resultSet.getInt(1));
@@ -46,7 +75,6 @@ public class DevelopersDao {
                 developers.setSalary(resultSet.getInt("salary"));
                 System.out.println(developers);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

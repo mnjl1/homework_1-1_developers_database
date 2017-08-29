@@ -12,6 +12,7 @@ public class MenuHolder {
         System.out.println("Make your choice;");
         System.out.println("1.Print developers list.");
         System.out.println("2.Add developer.");
+        System.out.println("3. Delete developer by last name");
 
         int choice = scanner.nextInt();
         switch (choice){
@@ -21,6 +22,10 @@ public class MenuHolder {
             }
             case (2) : {
                 developersDao.createDeveloper();
+                break;
+            }
+            case (3) : {
+                developersDao.deleteDeveloper();
                 break;
             }
             default:
