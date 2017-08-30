@@ -42,6 +42,7 @@ public class DevelopersDao {
         lastName = scanner.nextLine();
         System.out.println("Enter skill to add");
         String skill = scanner.nextLine();
+        //queary
         try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
             preparedStatement.execute();
         } catch (SQLException e) {

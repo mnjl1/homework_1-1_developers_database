@@ -12,12 +12,14 @@ public class SkillDAO {
     DatabaseConnector databaseConnector = new DatabaseConnector();
 
     public void createSkill(){
-        databaseConnector = null;
-        System.out.println("Enter new skill name.");
-        skillName = scanner.nextLine();
-        query = "INSERT INTO skills VALUE("+skillName+")" ;
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query);) {
+
+        query = "INSERT INTO skills(skillName) VALUE(?)" ;
+        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
+            System.out.println("Enter new skill name.");
+            skillName = scanner.nextLine();
+            preparedStatement.setString(1, skillName);
             preparedStatement.execute();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
