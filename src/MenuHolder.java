@@ -13,6 +13,9 @@ public class MenuHolder {
         System.out.println("1.Print developers list.");
         System.out.println("2.Add developer.");
         System.out.println("3. Delete developer by last name");
+        System.out.println("4. Creat new skill");
+        System.out.println("5. Add new developer' skill");
+
 
         int choice = scanner.nextInt();
         switch (choice) {
@@ -26,6 +29,12 @@ public class MenuHolder {
             }
             case (3): {
                 developersDao.deleteDeveloper();
+                break;
+            }
+            case (4) : {
+                SkillDAO skillDAO = new SkillDAO();
+                skillDAO.createSkill();
+
                 break;
             }
             default:
