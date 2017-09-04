@@ -1,4 +1,4 @@
-public class Skill {
+public class Skills {
     private String skillName;
     private int developer_id;
 
