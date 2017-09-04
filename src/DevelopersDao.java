@@ -45,7 +45,6 @@ public class DevelopersDao {
                 resultSet.last();
                 id = resultSet.getInt("developer_id");
             }
-
             try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)){
                      preparedStatement.setInt(1, id );
                      System.out.println("Enter skill name");
@@ -60,11 +59,15 @@ public class DevelopersDao {
     }
 
     public void deleteDeveloper() {
-        System.out.println("Enter developer's last name to delete from database.");
-        lastName = scanner.nextLine();
-        queary = "delete from developers where lastName = '" + lastName + "'";
+//        System.out.println("Enter developer's last name to delete from database.");
+//        lastName = scanner.nextLine();
+//        queary = "delete from developers where lastName = '" + lastName + "'";
 
+        queary = "DELETE FROM developers WHERE developer_id = ?";
+        System.out.println("Enter developers' id.");
+        int id = scanner.nextInt();
         try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

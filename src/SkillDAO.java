@@ -23,6 +23,5 @@ public class SkillDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
