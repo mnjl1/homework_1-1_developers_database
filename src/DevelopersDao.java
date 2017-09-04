@@ -44,7 +44,6 @@ public class DevelopersDao {
                     "WHERE lastName = '" + lastName + "'")) {
                 resultSet.last();
                 id = resultSet.getInt("developer_id");
-
             }
 
             try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)){

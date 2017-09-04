@@ -2,10 +2,11 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MenuHolder {
+
     Scanner scanner = new Scanner(System.in);
     DevelopersDao developersDao = new DevelopersDao();
 
-    public MenuHolder() throws SQLException {
+    public MenuHolder()  {
     }
 
     void menu() {
