@@ -13,9 +13,6 @@ public class DevelopersDao {
 
     Scanner scanner = new Scanner(System.in);
 
-    public DevelopersDao() throws SQLException {
-    }
-
     public void createDeveloper() {
         int salary;
         queary = "INSERT INTO developers (firstName, lastName, salary) VALUES (?, ?, ?)";
@@ -35,23 +32,32 @@ public class DevelopersDao {
         }
     }
 
-    public void addSkill() {
-        System.out.println("Enter developer's first name.");
-        firstName = scanner.nextLine();
-        System.out.println("Enter developer's last name.");
-        lastName = scanner.nextLine();
-        System.out.println("Enter skill to add");
-        String skill = scanner.nextLine();
-        //queary
-        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)) {
-            preparedStatement.execute();
+    public void addSkillToDeveloper() {
+        queary = "UPDATE skills SET developer_id = ? WHERE skillName = ?";
+        try (Statement statement = databaseConnector.getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY,
+                ResultSet.CONCUR_UPDATABLE)) {
+            System.out.println("Enter developer's last name.");
+            lastName = scanner.nextLine();
+
+            int id;
+            try (ResultSet resultSet = statement.executeQuery("SELECT developer_id FROM developers " +
+                    "WHERE lastName = '" + lastName + "'")) {
+                resultSet.last();
+                id = resultSet.getInt("developer_id");
+
+            }
+
+            try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(queary)){
+                     preparedStatement.setInt(1, id );
+                     System.out.println("Enter skill name");
+                     String skillName = scanner.nextLine();
+                     preparedStatement.setString(2, skillName);
+                     preparedStatement.executeUpdate();
+                 }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void updateDeveloper() {
-
     }
 
     public void deleteDeveloper() {
