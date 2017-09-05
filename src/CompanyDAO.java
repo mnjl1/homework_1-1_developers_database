@@ -4,15 +4,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class SkillsDAO {
-    int id;
-    String query;
-    String skillName;
+public class CompanyDAO {
+    private int id;
+    private int itcompany_id;
+    private String companyName;
+    private String query;
 
-    Skills skills = new Skills();
-
-    //method for entering Integer to any query
-      int enterInteger(){
+    int enterInteger(){
         boolean correctId = false;
         while (!correctId){
             try {
@@ -24,6 +22,7 @@ public class SkillsDAO {
         }
         return id;
     }
+    Company company = new Company();
 
     DatabaseConnector databaseConnector = new DatabaseConnector();
 
@@ -31,14 +30,11 @@ public class SkillsDAO {
 
     public void create() {
 
-        query = "INSERT INTO skills (developer_id,skillName) VALUES (?, ?)";
+        query = "INSERT INTO itcompany VALUE ?";
         try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
-            System.out.println("Enter developer' id.");
-            id = enterInteger();
-            preparedStatement.setInt(1, id);
-            System.out.println("Enter skills name.");
-            skillName = scanner.nextLine();
-            preparedStatement.setString(2, skillName);
+            System.out.println("Enter company name.");
+            companyName = scanner.nextLine();
+            preparedStatement.setString(1, companyName);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,13 +54,13 @@ public class SkillsDAO {
     }
 
     public void get() {
-        query = "SELECT * FROM skills";
+        query = "SELECT * FROM itcompany";
         try(Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()){
-                skills.setDeveloper_id(resultSet.getInt("skillName"));
-                skills.setDeveloper_id(resultSet.getInt("developer_id"));
-                System.out.println(skills);
+                company.setItcompany_id(resultSet.getInt(itcompany_id));
+                company.setCompanyName(resultSet.getString(companyName));
+                System.out.println(company);
 
             }
         } catch (SQLException e) {
@@ -73,15 +69,12 @@ public class SkillsDAO {
     }
 
     public void update(){
-        query ="UPDATE skills SET skillName = ?, developer_id = ?";
+        query ="UPDATE itcompany SET companyName = ?";
 
         try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
-            System.out.println("Enter Skill name.");
-            skillName = scanner.nextLine();
-            preparedStatement.setString(1, skillName);
-            System.out.println("Enter developer' id");
-            id = enterInteger();
-            preparedStatement.setInt(2, id);
+            System.out.println("Enter company name.");
+            companyName = scanner.nextLine();
+            preparedStatement.setString(1, companyName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
