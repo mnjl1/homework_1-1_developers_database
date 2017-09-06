@@ -35,4 +35,14 @@ public class Projects {
     public void setItcompany_id(int itcompany_id) {
         this.itcompany_id = itcompany_id;
     }
+
+    @Override
+    public String toString() {
+        return "Projects{" +
+                "projectName='" + projectName + '\'' +
+                ", customer_id=" + customer_id +
+                ", cost=" + cost +
+                ", itcompany_id=" + itcompany_id +
+                '}';
+    }
 }

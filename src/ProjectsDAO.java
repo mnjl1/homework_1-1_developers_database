@@ -14,13 +14,13 @@ public class ProjectsDAO {
 
     Projects projects = new Projects();
 
-    int enterInteger(){
+    int enterInteger() {
         boolean correctId = false;
-        while (!correctId){
+        while (!correctId) {
             try {
                 id = Integer.parseInt(scanner.next());
                 correctId = true;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong id!");
             }
         }
@@ -69,9 +69,9 @@ public class ProjectsDAO {
 
     public void get() {
         query = "SELECT * FROM projects";
-        try(Statement statement = databaseConnector.getConnection().createStatement()) {
+        try (Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 projects.setProjectName(resultSet.getString("projectName"));
                 projects.setCustomer_id(resultSet.getInt("customer_id"));
                 projects.setCost(resultSet.getInt("cost"));
@@ -84,10 +84,10 @@ public class ProjectsDAO {
         }
     }
 
-    public void update(){
-        query ="UPDATE projects SET projectName = ?, customer_id = ?, cost = ?, itcompany_id=?";
+    public void update() {
+        query = "UPDATE projects SET projectName = ?, customer_id = ?, cost = ?, itcompany_id=?";
 
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
             System.out.println("Enter project name.");
             projectName = scanner.nextLine();
             preparedStatement.setString(1, projectName);

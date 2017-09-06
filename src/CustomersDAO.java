@@ -43,11 +43,11 @@ public class CustomersDAO {
 
     public void get() {
         query = "SELECT * FROM customers";
-        try(Statement statement = databaseConnector.getConnection().createStatement()) {
+        try (Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()){
-                customers.setCustomer_id(resultSet.getInt(customer_id));
-                customers.setCustomerName(resultSet.getString(customerName));
+            while (resultSet.next()) {
+                customers.setCustomer_id(resultSet.getInt("customer_id"));
+                customers.setCustomerName(resultSet.getString("customerName"));
                 System.out.println(customers);
 
             }
@@ -56,10 +56,10 @@ public class CustomersDAO {
         }
     }
 
-    public void update(){
-        query ="UPDATE customers SET customerName = ?";
+    public void update() {
+        query = "UPDATE customers SET customerName = ?";
 
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
             System.out.println("Enter customer name.");
             customerName = scanner.nextLine();
             preparedStatement.setString(1, customerName);

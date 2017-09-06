@@ -12,13 +12,13 @@ public class SkillsDAO {
     Skills skills = new Skills();
 
     //method for entering Integer to any query
-      int enterInteger(){
+    int enterInteger() {
         boolean correctId = false;
-        while (!correctId){
+        while (!correctId) {
             try {
                 id = Integer.parseInt(scanner.next());
                 correctId = true;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong id!");
             }
         }
@@ -59,23 +59,21 @@ public class SkillsDAO {
 
     public void get() {
         query = "SELECT * FROM skills";
-        try(Statement statement = databaseConnector.getConnection().createStatement()) {
+        try (Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()){
-                skills.setDeveloper_id(resultSet.getInt("skillName"));
+            while (resultSet.next()) {
+                skills.setSkillName(resultSet.getString("skillName"));
                 skills.setDeveloper_id(resultSet.getInt("developer_id"));
                 System.out.println(skills);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(){
-        query ="UPDATE skills SET skillName = ?, developer_id = ?";
-
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
+    public void update() {
+        query = "UPDATE skills SET skillName = ?, developer_id = ?";
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
             System.out.println("Enter Skill name.");
             skillName = scanner.nextLine();
             preparedStatement.setString(1, skillName);

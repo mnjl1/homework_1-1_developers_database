@@ -5,7 +5,7 @@ public class Developers {
     private int salary;
     private int itCompany_ID;
 
-    public Developers(){
+    public Developers() {
 
     }
 

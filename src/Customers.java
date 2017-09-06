@@ -17,4 +17,12 @@ public class Customers {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    @Override
+    public String toString() {
+        return "Customers{" +
+                "customer_id=" + customer_id +
+                ", customerName='" + customerName + '\'' +
+                '}';
+    }
 }

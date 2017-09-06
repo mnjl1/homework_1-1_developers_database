@@ -12,13 +12,13 @@ public class DevelopersDao {
     Developers developers = new Developers();
 
     //method for entering Integer to any query
-      int enterInteger(){
+    int enterInteger() {
         boolean correctId = false;
-        while (!correctId){
+        while (!correctId) {
             try {
                 int id = Integer.parseInt(scanner.next());
                 correctId = true;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong id!");
             }
         }
@@ -76,10 +76,10 @@ public class DevelopersDao {
         }
     }
 
-    public void update(){
-        query ="UPDATE developers SET firstName = ?, lastName = ?, itcompany_id = ?, salary = ?";
+    public void update() {
+        query = "UPDATE developers SET firstName = ?, lastName = ?, itcompany_id = ?, salary = ?";
 
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
             System.out.println("Enter first name.");
             firstName = scanner.nextLine();
             preparedStatement.setString(1, firstName);

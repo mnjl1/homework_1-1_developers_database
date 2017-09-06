@@ -10,18 +10,19 @@ public class CompanyDAO {
     private String companyName;
     private String query;
 
-    int enterInteger(){
+    int enterInteger() {
         boolean correctId = false;
-        while (!correctId){
+        while (!correctId) {
             try {
                 id = Integer.parseInt(scanner.next());
                 correctId = true;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Wrong id!");
             }
         }
         return id;
     }
+
     Company company = new Company();
 
     DatabaseConnector databaseConnector = new DatabaseConnector();
@@ -55,23 +56,22 @@ public class CompanyDAO {
 
     public void get() {
         query = "SELECT * FROM itcompany";
-        try(Statement statement = databaseConnector.getConnection().createStatement()) {
+        try (Statement statement = databaseConnector.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()){
-                company.setItcompany_id(resultSet.getInt(itcompany_id));
-                company.setCompanyName(resultSet.getString(companyName));
+            while (resultSet.next()) {
+                company.setItcompany_id(resultSet.getInt("itcompany_id"));
+                company.setCompanyName(resultSet.getString("companyName"));
                 System.out.println(company);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(){
-        query ="UPDATE itcompany SET companyName = ?";
+    public void update() {
+        query = "UPDATE itcompany SET companyName = ?";
 
-        try(PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = databaseConnector.getConnection().prepareStatement(query)) {
             System.out.println("Enter company name.");
             companyName = scanner.nextLine();
             preparedStatement.setString(1, companyName);
